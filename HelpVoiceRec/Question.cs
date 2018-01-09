@@ -39,12 +39,10 @@ namespace HelpVoiceRec
         {
             QuestionCollection question = new QuestionCollection() { QuestionText = richTextBox1.Text };
 
-            if(listBox1.SelectedIndex != 0)
+
+            foreach(AnswerCollection element in listBox1.SelectedItems)
             {
-                foreach(AnswerCollection element in listBox1.SelectedItems)
-                {
                     question.possibleAnswers.Add(element);
-                }
             }
 
             if (richTextBox1.Text.Count() > 0)

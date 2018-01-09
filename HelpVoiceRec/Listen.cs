@@ -54,11 +54,15 @@ namespace HelpVoiceRec
         {
             var newQuestion = Logic.Instance.Collection.CurrentQuestion.possibleAnswers.Find(x => x.AnswerText == e.Result.Text);
 
-            if (newQuestion.nextQuestion != null)
+            if (newQuestion != null && newQuestion.nextQuestion != null)
             {
                 Logic.Instance.Collection.CurrentQuestion = newQuestion.nextQuestion;
-                speak.SpeakIt(newQuestion.nextQuestion.QuestionText);
-                AddChoices(Logic.Instance.Collection.CurrentQuestion.GetChoicesFromAnswers());
+                speak.SpeakIt(Logic.Instance.Collection.CurrentQuestion.QuestionText);
+
+                var choices = Logic.Instance.Collection.CurrentQuestion.GetChoicesFromAnswers();
+
+                if(choices.Count() > 0)
+                    AddChoices(choices);
             }
             Console.WriteLine(e.Result.Text);
         }

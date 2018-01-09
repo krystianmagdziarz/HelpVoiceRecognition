@@ -29,8 +29,8 @@ namespace HelpVoiceRec
         private void Form1_Load(object sender, EventArgs e)
         {
             speak.SpeakIt("Witaj w Help Voice Recognition");
-            //speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
-            //speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
+            speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
+            speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -116,8 +116,8 @@ namespace HelpVoiceRec
 
                     if (Logic.Instance.Collection.QuestionCollection.Count > 0)
                     {
-                        //Logic.Instance.Collection.AnswerCollection.Reverse();
-                        //Logic.Instance.Collection.QuestionCollection.Reverse();
+                        Logic.Instance.Collection.AnswerCollection.Reverse();
+                        Logic.Instance.Collection.QuestionCollection.Reverse();
 
                         Console.WriteLine(Logic.Instance.Collection.CurrentQuestion.QuestionText + Logic.Instance.Collection.CurrentQuestion.possibleAnswers.Count.ToString());
 

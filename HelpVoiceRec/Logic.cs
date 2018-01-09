@@ -60,6 +60,7 @@ namespace HelpVoiceRec
             }
         }
 
+        [JsonIgnore]
         public List<AnswerCollection> AnswerCollection
         {
             get
@@ -72,12 +73,13 @@ namespace HelpVoiceRec
             }
         }
 
+        [JsonIgnore]
         public QuestionCollection CurrentQuestion
         {
             get
             {
                 if (currentQuestion == null && questionLogic.Count > 0)
-                    currentQuestion = questionLogic.Last();
+                    currentQuestion = questionLogic.First();
 
                 return currentQuestion;
             }
