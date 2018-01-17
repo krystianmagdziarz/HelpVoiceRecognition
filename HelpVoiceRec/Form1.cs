@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Speech.Recognition;
 using Newtonsoft.Json;
+using VoiceXMLParser;
+using System.IO;
 
 namespace HelpVoiceRec
 {
@@ -17,6 +19,8 @@ namespace HelpVoiceRec
         GrammarEditorForm grammarEditorForm;
         Listen listen;
         Speak speak;
+
+        XMLParser xmlparser;
 
         public Form1()
         {
@@ -29,8 +33,8 @@ namespace HelpVoiceRec
         private void Form1_Load(object sender, EventArgs e)
         {
             speak.SpeakIt("Witaj w Help Voice Recognition");
-            speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
-            speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
+            //speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
+            //speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -95,6 +99,21 @@ namespace HelpVoiceRec
             {
                 grammarEditorForm = new GrammarEditorForm(saveFileDialog1.FileName);
                 grammarEditorForm.Show();
+            }
+        }
+
+        private void LoadXMLContent()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Pliki słownika voicexml|*.vxml";
+            openFileDialog1.Title = "Wybierz plik słownika";
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                StreamReader sr = new StreamReader(openFileDialog1.FileName);
+
+                this.xmlparser = new XMLParser(sr);
+                
             }
         }
 
@@ -192,6 +211,26 @@ namespace HelpVoiceRec
             listen.StopListen();
             startBtn.Enabled = true;
             stopBtn.Enabled = false;
+        }
+
+        public void setPossibleAnswers(string options)
+        {
+            if(String.IsNullOrEmpty(options))
+            {
+                this.answeroption.Visible = false;
+            }
+            else
+            {
+                this.answeroption.Visible = true;
+            }
+
+            this.answeroption.Text = options;
+            this.answeroption.Refresh();
+        }
+
+        private void vxmlButton_Click(object sender, EventArgs e)
+        {
+            this.LoadXMLContent();
         }
     }
 }

@@ -17,6 +17,9 @@ namespace HelpVoiceRec
 
         public Listen(Form1 form1)
         {
+            TimeSpan ts = new TimeSpan(0);
+            engine.EndSilenceTimeout = ts;
+            engine.InitialSilenceTimeout = ts;
             engine.LoadGrammarCompleted += Engine_LoadGrammarCompleted;
             engine.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Engine_SpeechRecognized);
             engine.SpeechDetected += Engine_SpeechDetected;
@@ -62,7 +65,14 @@ namespace HelpVoiceRec
                 var choices = Logic.Instance.Collection.CurrentQuestion.GetChoicesFromAnswers();
 
                 if(choices.Count() > 0)
+                {
                     AddChoices(choices);
+                    this.form1.setPossibleAnswers(Logic.Instance.Collection.CurrentQuestion.GetChoicesString("|"));
+                }
+                else
+                {
+                    this.form1.setPossibleAnswers("");
+                }
             }
             Console.WriteLine(e.Result.Text);
         }
@@ -84,6 +94,7 @@ namespace HelpVoiceRec
 
         public void StartListen()
         {
+            this.form1.setPossibleAnswers(Logic.Instance.Collection.CurrentQuestion.GetChoicesString("|"));
             engine.RecognizeAsync(RecognizeMode.Multiple);
         }
 

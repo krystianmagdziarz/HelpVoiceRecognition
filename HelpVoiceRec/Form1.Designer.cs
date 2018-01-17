@@ -45,6 +45,8 @@
             this.odpInput = new System.Windows.Forms.TextBox();
             this.odpBox = new System.Windows.Forms.GroupBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.answeroption = new System.Windows.Forms.Label();
+            this.vxmlButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -86,16 +88,17 @@
             // 
             // loadxmlBtn
             // 
-            this.loadxmlBtn.Location = new System.Drawing.Point(20, 43);
+            this.loadxmlBtn.Location = new System.Drawing.Point(26, 31);
             this.loadxmlBtn.Name = "loadxmlBtn";
             this.loadxmlBtn.Size = new System.Drawing.Size(120, 23);
             this.loadxmlBtn.TabIndex = 3;
-            this.loadxmlBtn.Text = "Wczytaj XML";
+            this.loadxmlBtn.Text = "Wczytaj Json";
             this.loadxmlBtn.UseVisualStyleBackColor = true;
             this.loadxmlBtn.Click += new System.EventHandler(this.loadxmlBtn_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.vxmlButton);
             this.groupBox1.Controls.Add(this.loadxmlBtn);
             this.groupBox1.Location = new System.Drawing.Point(12, 397);
             this.groupBox1.Name = "groupBox1";
@@ -145,7 +148,7 @@
             // nowyToolStripMenuItem
             // 
             this.nowyToolStripMenuItem.Name = "nowyToolStripMenuItem";
-            this.nowyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nowyToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.nowyToolStripMenuItem.Text = "Nowy";
             this.nowyToolStripMenuItem.Click += new System.EventHandler(this.nowyToolStripMenuItem_Click);
             // 
@@ -153,19 +156,19 @@
             // 
             this.wczytajToolStripMenuItem.Enabled = false;
             this.wczytajToolStripMenuItem.Name = "wczytajToolStripMenuItem";
-            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.wczytajToolStripMenuItem.Text = "Wczytaj";
             this.wczytajToolStripMenuItem.Click += new System.EventHandler(this.wczytajToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // odpPisemneToolStripMenuItem
             // 
             this.odpPisemneToolStripMenuItem.Name = "odpPisemneToolStripMenuItem";
-            this.odpPisemneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.odpPisemneToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.odpPisemneToolStripMenuItem.Text = "Odp. pisemne";
             this.odpPisemneToolStripMenuItem.Click += new System.EventHandler(this.odpPisemneToolStripMenuItem_Click);
             // 
@@ -203,11 +206,32 @@
             this.saveFileDialog1.Title = "Zapisz plik słownika";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
+            // answeroption
+            // 
+            this.answeroption.Location = new System.Drawing.Point(12, 47);
+            this.answeroption.Name = "answeroption";
+            this.answeroption.Size = new System.Drawing.Size(352, 67);
+            this.answeroption.TabIndex = 9;
+            this.answeroption.Text = "label1";
+            this.answeroption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.answeroption.Visible = false;
+            // 
+            // vxmlButton
+            // 
+            this.vxmlButton.Location = new System.Drawing.Point(26, 69);
+            this.vxmlButton.Name = "vxmlButton";
+            this.vxmlButton.Size = new System.Drawing.Size(120, 23);
+            this.vxmlButton.TabIndex = 4;
+            this.vxmlButton.Text = "Wczytaj VXML";
+            this.vxmlButton.UseVisualStyleBackColor = true;
+            this.vxmlButton.Click += new System.EventHandler(this.vxmlButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(376, 518);
+            this.Controls.Add(this.answeroption);
             this.Controls.Add(this.odpBox);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -248,6 +272,8 @@
         private System.Windows.Forms.ToolStripMenuItem wczytajToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label answeroption;
+        private System.Windows.Forms.Button vxmlButton;
     }
 }
 

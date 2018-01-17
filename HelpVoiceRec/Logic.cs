@@ -46,7 +46,7 @@ namespace HelpVoiceRec
         private LogicCollection logicCollection = new LogicCollection();
     }
 
-    class LogicCollection
+    public class LogicCollection
     {
         public List<QuestionCollection> QuestionCollection
         {
@@ -104,7 +104,7 @@ namespace HelpVoiceRec
 
     }
 
-    class QuestionCollection
+    public class QuestionCollection
     {
         public List<AnswerCollection> possibleAnswers = new List<AnswerCollection>();
         public string QuestionText { get; set; }
@@ -125,9 +125,25 @@ namespace HelpVoiceRec
             else
                 return new string[0];
         }
+
+        public string GetChoicesString(string separator)
+        {
+            string value = "";
+            var items = this.GetChoicesFromAnswers();
+
+            foreach (var item in items)
+            {
+                value += item + " " + separator;
+            }
+
+            if(value.EndsWith(separator))
+                value = value.Substring(0, value.Length - 1);
+
+            return value;
+        }
     }
 
-    class AnswerCollection
+    public class AnswerCollection
     {
         public QuestionCollection nextQuestion = null;
         public string AnswerText { get; set; }
