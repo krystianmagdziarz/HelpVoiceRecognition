@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Speech.Recognition;
+using DBConnector;
 
 namespace HelpVoiceRec
 {
     class Listen
     {
+        OwnCommands ownCommands;
         SpeechRecognitionEngine engine = new SpeechRecognitionEngine();
         Choices choices = new Choices();
         GrammarBuilder grammarBuilder = new GrammarBuilder();
@@ -30,6 +32,8 @@ namespace HelpVoiceRec
 
             this.speak = form1.GetCurrentSpeak();
             this.form1 = form1;
+
+            ownCommands = new OwnCommands();
         }
 
         private void Engine_AudioStateChanged(object sender, AudioStateChangedEventArgs e)
@@ -55,6 +59,8 @@ namespace HelpVoiceRec
 
         private void Engine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
+            ownCommands.SaveActivity(this.form1.GetCallerID(), Logic.Instance.Collection.CurrentQuestion.QuestionText, e.Result.Text);
+
             var newQuestion = Logic.Instance.Collection.CurrentQuestion.possibleAnswers.Find(x => x.AnswerText == e.Result.Text);
 
             if (newQuestion != null && newQuestion.nextQuestion != null)
@@ -72,6 +78,7 @@ namespace HelpVoiceRec
                 else
                 {
                     this.form1.setPossibleAnswers("");
+                    this.form1.StopRecognition();
                 }
             }
             else

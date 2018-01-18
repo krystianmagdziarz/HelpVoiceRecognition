@@ -11,6 +11,7 @@ using System.Speech.Recognition;
 using Newtonsoft.Json;
 using VoiceXMLParser;
 using System.IO;
+using DBConnector;
 
 namespace HelpVoiceRec
 {
@@ -21,6 +22,7 @@ namespace HelpVoiceRec
         Speak speak;
 
         XMLParser xmlparser;
+        int callerID;
 
         public Form1()
         {
@@ -28,6 +30,7 @@ namespace HelpVoiceRec
 
             this.speak = new Speak(this.speakText);
             this.listen = new Listen(this);
+            this.callerID = -1;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,6 +38,8 @@ namespace HelpVoiceRec
             speak.SpeakIt("Witaj w Help Voice Recognition");
             //speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
             //speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
+
+            this.markCall();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -123,6 +128,7 @@ namespace HelpVoiceRec
                     {
                         startBtn.Enabled = true;
                         loadxmlBtn.Enabled = false;
+                        vxmlButton.Enabled = false;
 
                         listen.AddChoices(choices);
                     }
@@ -162,6 +168,7 @@ namespace HelpVoiceRec
                         {
                             startBtn.Enabled = true;
                             loadxmlBtn.Enabled = false;
+                            vxmlButton.Enabled = false;
 
                             listen.AddChoices(choices);
                         }
@@ -248,6 +255,20 @@ namespace HelpVoiceRec
         private void vxmlButton_Click(object sender, EventArgs e)
         {
             this.LoadXMLContent();
+        }
+
+        private void markCall()
+        {
+            OwnCommands ownCommands = new OwnCommands();
+            ownCommands.MarkCall();
+            this.callerID = ownCommands.getCallerID();
+
+            this.speak.SpeakIt("Baza danych: Dotąd wykonano " + ownCommands.Count().ToString() + " połączeń.");
+        }
+
+        public int GetCallerID()
+        {
+            return this.callerID;
         }
     }
 }

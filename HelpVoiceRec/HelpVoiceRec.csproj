@@ -247,6 +247,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBConnector\DBConnector.csproj">
+      <Project>{870be321-61d4-40b6-b9bf-1713cc1b20d1}</Project>
+      <Name>DBConnector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VoiceXMLParser\VoiceXMLParser.csproj">
       <Project>{72e62766-4cc9-4e35-a236-2eb43c596c95}</Project>
       <Name>VoiceXMLParser</Name>
