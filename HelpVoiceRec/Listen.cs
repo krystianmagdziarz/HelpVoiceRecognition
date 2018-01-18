@@ -45,6 +45,7 @@ namespace HelpVoiceRec
         {
             if (value.Count() > 0)
             {
+                engine.UnloadAllGrammars();
                 choices = new Choices();
                 choices.Add(value);
                 grammarBuilder.Append(choices);

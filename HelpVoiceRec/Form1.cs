@@ -36,8 +36,8 @@ namespace HelpVoiceRec
         private void Form1_Load(object sender, EventArgs e)
         {
             speak.SpeakIt("Witaj w Help Voice Recognition");
-            //speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
-            //speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
+            speak.SpeakIt("Program umożliwia symulacje automatu obsługującego zgłoszenia o wypadkach");
+            speak.SpeakIt("Proszę wybrać plik XML z zawartą gramatyką");
 
             this.markCall();
         }
