@@ -106,6 +106,7 @@ namespace HelpVoiceRec
 
     public class QuestionCollection
     {
+        public string ID = String.Empty;
         public List<AnswerCollection> possibleAnswers = new List<AnswerCollection>();
         public string QuestionText { get; set; }
 

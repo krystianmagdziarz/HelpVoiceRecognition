@@ -21,7 +21,7 @@ namespace VoiceXMLParser
             this.LoadFile();
         }
 
-        private async void LoadFile()
+        private void LoadFile()
         {
             var is_form = false;
             var is_item = false;
@@ -37,7 +37,7 @@ namespace VoiceXMLParser
 
             using (XmlReader reader = XmlReader.Create(this.sr, settings))
             {
-                while (await reader.ReadAsync())
+                while (reader.Read())
                 {
                     switch (reader.NodeType)
                     {
@@ -61,7 +61,7 @@ namespace VoiceXMLParser
                                     var next = reader.GetAttribute("next");
 
                                     if (form.ItemList.Count > go_to_next)
-                                        form.ItemList[go_to_next].Next = this.GetElementId(next);
+                                        form.ItemList[go_to_next].NextID = this.GetElementId(next);
 
                                     ++go_to_next;
                                     break;
@@ -69,9 +69,9 @@ namespace VoiceXMLParser
                             break;
                         case XmlNodeType.Text:
                             if (is_item)
-                                item.Answer = RemoveWhiteSpaces(await reader.GetValueAsync());
+                                item.Answer = RemoveWhiteSpaces(reader.Value);
                             else if (is_prompt)
-                                prompt.Prompt = RemoveWhiteSpaces(await reader.GetValueAsync());
+                                prompt.Prompt = RemoveWhiteSpaces(reader.Value);
                             break;
                         case XmlNodeType.EndElement:
                             switch (reader.Name)
@@ -95,6 +95,8 @@ namespace VoiceXMLParser
 
                 }
             }
+
+            this.AssiociateAll();
         }
 
         private string RemoveWhiteSpaces(string s)
@@ -106,12 +108,32 @@ namespace VoiceXMLParser
         {
             return s.Replace("#", "");
         }
+
+        public void AssiociateAll()
+        {
+            foreach(FormXML form in formsList)
+            {
+                foreach(ItemXML item in form.ItemList)
+                {
+                    try
+                    {
+                        item.Next = formsList.Find(x => x.ID == item.NextID);
+                    }
+                    catch (Exception e)
+                    {
+                        item.Next = null;
+                    }
+                }
+            }
+        }
     }
 
     public class FormXML
     {
+        private string _id = string.Empty;
+
         public List<ItemXML> ItemList { get; set; } 
-        public string ID { get; set; }
+        public string ID { get { return _id; } set { _id = value;  } }
         public PromptXML Prompt { get; set; }
 
         public FormXML()
@@ -123,7 +145,8 @@ namespace VoiceXMLParser
     public class ItemXML
     {
         public string Answer { get; set; }
-        public string Next { get; set; }
+        public string NextID { get; set; }
+        public FormXML Next { get; set; }
     }
 
     public class PromptXML

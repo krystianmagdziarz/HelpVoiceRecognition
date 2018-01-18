@@ -74,6 +74,10 @@ namespace HelpVoiceRec
                     this.form1.setPossibleAnswers("");
                 }
             }
+            else
+            {
+                form1.setPossibleAnswers("");
+            }
             Console.WriteLine(e.Result.Text);
         }
 

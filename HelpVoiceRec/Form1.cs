@@ -111,9 +111,26 @@ namespace HelpVoiceRec
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 StreamReader sr = new StreamReader(openFileDialog1.FileName);
+                Helper helper = new Helper();
 
                 this.xmlparser = new XMLParser(sr);
-                
+                Logic.Instance.Collection = helper.TranslateFromXMLToLogicCollection(this.xmlparser.formsList);
+
+                if (Logic.Instance.Collection.QuestionCollection.Count > 0)
+                {
+                    var choices = Logic.Instance.Collection.CurrentQuestion.GetChoicesFromAnswers();
+                    if (choices.Count() > 0)
+                    {
+                        startBtn.Enabled = true;
+                        loadxmlBtn.Enabled = false;
+
+                        listen.AddChoices(choices);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pierwsze pytanie nie posiada odpowiedzi", "Błąd wczytywania", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
         }
 
