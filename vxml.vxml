@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.0">
+
+<form id="walking">
+    <field name="walk">
+        <prompt>
+            Witaj w centrum pomocy medycznej. Czy poszkodowany chodzi ?
+        </prompt>
+        <grammar>
+            <rule>
+                <one-of>
+                    <item>Chodzi</item>
+                    <item>Nie chodzi</item>
+                    <item>Tak</item>
+                    <item>Nie</item>
+                </one-of>
+            </rule>
+        </grammar>
+        <filled>
+            <if cond="walk=='Chodzi'">
+                <goto next="#breathing"/>
+            <elseif cond="walk=='Nie chodzi'"/>
+                <goto next="#breathing"/>
+            <elseif cond="walk=='Tak'"/>
+                <goto next="#breathing"/>
+            <elseif cond="walk=='Nie'"/>
+                <goto next="#breathing"/>
+            </if>
+        </filled>
+    </field>
+</form>
+<form id="breathing">
+    <field name="breath">
+        <prompt>
+            Czy poszkodowany oddycha ?
+        </prompt>
+        <grammar>
+            <rule>
+                <one-of>
+                    <item>Oddycha</item>
+                    <item>Nie oddycha</item>
+                    <item>Tak</item>
+                    <item>Nie</item>
+                </one-of>
+            </rule>
+        </grammar> 
+    </field>
+</form>
+</vxml>
