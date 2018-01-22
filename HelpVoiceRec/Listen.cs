@@ -48,6 +48,7 @@ namespace HelpVoiceRec
                 engine.UnloadAllGrammars();
                 choices = new Choices();
                 choices.Add(value);
+                grammarBuilder = new GrammarBuilder();
                 grammarBuilder.Append(choices);
                 Grammar grammar = new Grammar(grammarBuilder);
                 engine.LoadGrammarAsync(grammar);
@@ -84,6 +85,7 @@ namespace HelpVoiceRec
             }
             else
             {
+                engine.UnloadAllGrammars();
                 form1.setPossibleAnswers("");
             }
             Console.WriteLine(e.Result.Text);
